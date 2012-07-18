@@ -1,0 +1,53 @@
+<apex:page showheader="false" standardstylesheets="false" >
+	<head>
+		<link rel="stylesheet" href="{!URLFOR($Resource.jsSignature, 'build/jquery.signaturepad.css')}" />
+		
+		<script type="text/javascript" charset="utf-8" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script src="{!URLFOR($Resource.jsSignature, 'build/jquery.signaturepad.min.js')}"></script>
+		<script src="{!URLFOR($Resource.jsSignature, 'build/json2.min.js')}"></script>
+		
+		
+		<script type="text/javascript" charset="utf-8" src="{!URLFOR($Resource.jquerymobilemaps_3_0, '/ui/jquery.ui.map.js')}"></script>
+		<script type="text/javascript" src="{!URLFOR($Resource.jquerymobilemaps_3_0, '/ui/jquery.ui.map.services.js')}"></script>
+		<script type="text/javascript" src="{!URLFOR($Resource.jquerymobilemaps_3_0, '/ui/jquery.ui.map.extensions.js')}"></script>
+		
+	</head>
+	
+	<body>
+		<form method="post" action="" class="sigPad">
+			<ul class="sigNav">
+      			<li class="drawIt"><a href="#draw-it" >Customer Signature required</a></li>
+      			<li class="clearButton"><a href="#clear" style="color:#FFF">Clear</a></li>
+    		</ul>
+    		<div class="sig sigWrapper" style="border:none;">
+      			<div class="typed"></div>
+      			<canvas class="pad" height="55px" width="400px"></canvas>
+      			<input type="hidden" name="output" class="output" />
+    		</div>
+<!--     		<div id="divSigImg"></div> -->
+<!--     		<button type="button" onClick="generateImg();" id="btnGetSinagute" style="display">do it</button> -->
+  		</form>
+		
+  		<script>
+  			function generateImg()
+  			{
+  				var api = $('.sigPad').signaturePad();
+  				
+  				var sig = '';
+  				if(api.validateForm())
+  				{
+					sig = api.getSignatureImage();
+					
+					//alert('sig = ' + sig);
+	  				//document.getElementById('divSigImg').innerHTML = sig; 
+  				}
+  				return sig;
+  			}
+  			var sigPad;
+		    $(document).ready(function() {
+		      sigPad = $('.sigPad').signaturePad({drawOnly:true});
+		    });
+  		</script>
+	</body>
+</apex:page>

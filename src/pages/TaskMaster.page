@@ -1,0 +1,83 @@
+<apex:page showheader="false" standardstylesheets="false" controller="TaskListController">
+<html lang="en">
+	<head>
+		<title>Task Master</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+		<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="{!URLFOR($Resource.jquerymobilemaps_3_0, '/ui/jquery.ui.map.js')}"></script>
+	</head>
+	<body>
+		<div data-role="page" data-theme="a" id="taskList">
+			<div data-role="header">
+				<h1>Task Master</h1>
+			</div>
+			<div data-role="content" style="text-align:center;">
+				
+				
+				<div class="content-primary" style="width:90%;padding-left:5%;padding-top:20px;padding-bottom:20px;">
+				
+				<ul data-role="listview" style="padding-top:20px;">
+					
+					<li data-role="list-divider">This Week's Tasks</li>
+					<apex:repeat var="task" value="{!CurrentWeekTasks}">
+					<li>
+						<a href="TaskDetail2?id={!task.id}" data-transition="flip" data-ajax="false">
+							<div style="width:100px;float:left;">
+								<apex:outputText value="{0,date,MM/dd/yyyy}">
+		                   			<apex:param value="{!task.ActivityDate}"/> 
+		                		</apex:outputText>
+							</div>
+							<div >
+								<apex:outputText value="{!task.Subject}"/>
+								
+							</div>
+						</a>
+					</li>
+					</apex:repeat>
+					
+					<li data-role="list-divider">Next Week's Tasks</li>
+					<apex:repeat var="task" value="{!NextWeekTasks}">
+					<li>
+						<a href="TaskMaster?id={!task.id}#taskDetail">
+							<div style="width:100px;float:left;">
+								<apex:outputText value="{0,date,MM/dd/yyyy}">
+		                   			<apex:param value="{!task.ActivityDate}"/> 
+		                		</apex:outputText>
+							</div>
+							<div >
+								<apex:outputText value="{!task.Subject}"/>
+							</div>
+						</a>
+					</li>
+					</apex:repeat>
+					
+					<li data-role="list-divider">Future Tasks</li>
+					<apex:repeat var="task" value="{!LaterTasks}">
+					<li>
+						<a href="TaskMaster?id={!task.id}#taskDetail">
+							<div style="width:100px;float:left;">
+								<apex:outputText value="{0,date,MM/dd/yyyy}">
+		                   			<apex:param value="{!task.ActivityDate}"/> 
+		                		</apex:outputText>
+							</div>
+							<div >
+								<apex:outputText value="{!task.Subject}"/>
+							</div>
+						</a>
+					</li>
+					</apex:repeat>
+					
+				</ul>
+				</div>
+			</div>
+			<div data-role="footer">
+				<p align="center">Created by Anshul Verma</p>
+			</div>
+		</div>
+	</body>
+</html>
+</apex:page>
