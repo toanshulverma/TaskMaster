@@ -42,7 +42,7 @@
 					<li data-role="list-divider">Next Week's Tasks</li>
 					<apex:repeat var="task" value="{!NextWeekTasks}">
 					<li>
-						<a href="TaskMaster?id={!task.id}#taskDetail">
+						<a href="TaskDetail2?id={!task.id}" data-transition="flip" data-ajax="false">
 							<div style="width:100px;float:left;">
 								<apex:outputText value="{0,date,MM/dd/yyyy}">
 		                   			<apex:param value="{!task.ActivityDate}"/> 
@@ -50,6 +50,7 @@
 							</div>
 							<div >
 								<apex:outputText value="{!task.Subject}"/>
+								
 							</div>
 						</a>
 					</li>
@@ -58,7 +59,7 @@
 					<li data-role="list-divider">Future Tasks</li>
 					<apex:repeat var="task" value="{!LaterTasks}">
 					<li>
-						<a href="TaskMaster?id={!task.id}#taskDetail">
+						<a href="TaskDetail2?id={!task.id}" data-transition="flip" data-ajax="false">
 							<div style="width:100px;float:left;">
 								<apex:outputText value="{0,date,MM/dd/yyyy}">
 		                   			<apex:param value="{!task.ActivityDate}"/> 
@@ -66,6 +67,7 @@
 							</div>
 							<div >
 								<apex:outputText value="{!task.Subject}"/>
+								
 							</div>
 						</a>
 					</li>

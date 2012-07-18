@@ -64,16 +64,26 @@ public with sharing class TaskListController
 		Integer currentWeek = getWeek(System.now());
 		
 		//fetch tasks and group them in lists
-		for(Task task :[select id, Subject, ActivityDate, CustomerSignatureRequired__c from Task where IsClosed = false order by ActivityDate])
+		for(Task task :[select id, Subject, ActivityDate, who.name, Account.Name, CustomerSignatureRequired__c from Task where IsClosed = false order by ActivityDate])
 		{
 			Integer taskWeek = getWeek(task.ActivityDate);
 			
-			if(currentWeek == taskWeek)
+			Integer weekDiff = taskWeek - currentWeek;
+			if(task.who != null)
+			{
+				task.Subject += ' - ' + task.who.Name;
+				if(task.Account != null)
+				{
+					task.Subject += ' (' + task.Account.Name + ')';
+				}
+			}
+			
+			if(weekDiff <= 0)
 			{
 				//task is for current week
 				CurrentWeekTasks.add(task);
-			}
-			else if(currentWeek + 1 == taskWeek)
+			} 
+			else if(weekDiff == 1)
 			{
 				//task is for next week
 				NextWeekTasks.add(task);
@@ -89,7 +99,7 @@ public with sharing class TaskListController
 	//returns week number of provided datetime value
 	private Integer getWeek(DateTime dt)
 	{
-		return Integer.valueOf(System.now().format('w'));
+		return dt != null ? Integer.valueOf(dt.format('w')) : 0;
 	}
 	
 	//event handler to close task button
